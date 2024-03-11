@@ -7,6 +7,8 @@ let btnSaveNote = document.querySelector("#btn-save-note"); //icone para salvar 
 let btnCloseNote = document.querySelector("#btn-close-note");//icone para fechar modal de edição de nota.
 
 addNote.addEventListener("click", evt =>{
-    evt.preventDefault ;
-    modal.getElementsByClassName.dislpay = "block";
-})
+    evt.preventDefault();
+    modal.style.dislpay = "block";
+    addNote.getElementsByClassName.display = "none";
+    notes.getElementsByClassName.display = "none";
+});
