@@ -5,3 +5,8 @@ let modalView = document.querySelector('#modal-view'); //Modal para exibição d
 let notes = document.querySelector('.item-notes');//Lista divs com dados das notas
 let btnSaveNote = document.querySelector("#btn-save-note"); //icone para salvar nota
 let btnCloseNote = document.querySelector("#btn-close-note");//icone para fechar modal de edição de nota.
+
+addNote.addEventListener("click", evt =>{
+    evt.preventDefault ;
+    modal.getElementsByClassName.dislpay = "block";
+})
