@@ -9,6 +9,6 @@ let btnCloseNote = document.querySelector("#btn-close-note");//icone para fechar
 addNote.addEventListener("click", evt =>{
     evt.preventDefault();
     modal.style.dislpay = "block";
-    addNote.getElementsByClassName.display = "none";
-    notes.getElementsByClassName.display = "none";
+    addNote.style.display = "none";
+    notes.style.display = "none";
 });
