@@ -92,10 +92,9 @@ const listNotes =() => {
         let h5 = document.createElement('h5');
         h5.innerText = note.title;
         divCardBody.appendChild(h5);
-
+        notes.appendChild(divCard);
 }); 
-    notes.appendChild(divCard);
-
 
 listNotes();
 
+}; 
