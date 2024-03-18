@@ -82,6 +82,7 @@ const loadNotes = () => {
 
 const listNotes =() => {
     let listNotes = loadNotes();
+    console.log(listNotes);
     listNotes.forEach((item) => {
         let divCard = document.createElement('div');
         divCard.className = 'card';
@@ -92,6 +93,16 @@ const listNotes =() => {
         let h5 = document.createElement('h5');
         h5.innerText = note.title;
         divCardBody.appendChild(h5);
+        let pContent = document.createElement('p');
+        pContent.innerText = note.content;
+        let plastTime = document.createElement('p');
+        let time = new Date (note.lastTime);
+        time = time.toLocaleDateString("pt-br");
+        plastTime.innerText = "Atualizado em:" +time;
+
+        divCardBody.appendChild(pContent);
+        divCardBody.appendChild(pLastTime);
+
         notes.appendChild(divCard);
 }); 
 
