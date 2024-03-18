@@ -81,8 +81,21 @@ const loadNotes = () => {
 }
 
 const listNotes =() => {
+    let listNotes = loadNotes();
+    listNotes.forEach((item) => {
+        let divCard = document.createElement('div');
+        divCard.className = 'card';
+        divCard.style.width = '25rem';
+        let divCardBody = document.createElement('div');
+        divCardBody.className = 'card-body';
+        divCard.appendChild(divCardBody);
+        let h5 = document.createElement('h5');
+        h5.innerText = note.title;
+        divCardBody.appendChild(h5);
 
-} 
+}); 
+    notes.appendChild(divCard);
+
 
 listNotes();
 
