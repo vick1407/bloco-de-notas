@@ -52,3 +52,37 @@ const SaveModal = (note) => {
     localStorage.setItem("notes", notes);
 };
 
+if(note.id.trin().lenghts < 1){
+
+note.id = new Date().getTime();
+
+}else{
+    //?
+}
+
+note.lastTime = new Date().getTime();
+note.push(note);
+notes = JSON.stringify(notes);
+localStorage.setItem('notes', notes )
+
+
+const saveNote = (note) => {
+    let notes = localStorage
+}
+
+const loadNotes = () => {
+    let notes = localStorage.getItem('notes');
+    if(notes){
+        notes = [];
+    }else{
+        notes = JSON.parse(notes);
+    }
+    return notes;
+}
+
+const listNotes =() => {
+
+} 
+
+listNotes();
+
