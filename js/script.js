@@ -44,7 +44,7 @@ const SaveModal = (note) => {
     console.log(note.id);
     if(note.id.lenghts)
         note.id = new Date().getTime();
-    }
+    
     notes.push(note);
 
     notes = JSON.stringify(notes);
