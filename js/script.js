@@ -33,5 +33,22 @@ btnSaveModal.addEventListener("click", (evt) => {
 
 const SaveModal = (note) => {
     console.log(note);
-    
+    let notes = localStorage.getItem("notes");
+
+    if(notes){
+        notes = [];
+    } else {
+        notes = JSON.parse(notes);
+    }
+
+    console.log(note.id);
+    if(note.id.lenghts)
+        note.id = new Date().getTime();
+    }
+    notes.push(note);
+
+    notes = JSON.stringify(notes);
+
+    localStorage.setItem("notes", notes);
 };
+
