@@ -4,6 +4,8 @@ let modal = document.querySelector('#modal'); //Modal para edição das notas
 let modalView = document.querySelector('#modal-view'); //Modal para exibição dos detalhes da nota
 let notes = document.querySelector('#notes');//Lista divs com dados das notas
 let btnSaveNote = document.querySelector("#btn-save-note"); //icone para salvar nota
+let bntCloseNote = document.querySelector("#close-modal-view");
+
 
 addNote.addEventListener("click", (evt) => {
     evt.preventDefault();
@@ -17,6 +19,7 @@ btnCloseModal.addEventListener("click", (evt) => {
     modal.style.display = "none";
     addNote.style.display = "block";
     notes.style.display = "flex";
+    modalView.style.display = "none"
 });
 
 btnSaveNote.addEventListener("click", (evt) => {
