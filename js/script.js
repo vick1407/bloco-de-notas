@@ -63,6 +63,7 @@ const loadNotes = () => {
 const listNotes =  () =>{
     let listNotes = loadNotes();
     listNotes.forEach((note) => {
+        let divCard = document.createElement('div');
         divCard.className = 'card';
         divCard.style.width = '25rem';
         let divCardBody = document.createElement('div');
