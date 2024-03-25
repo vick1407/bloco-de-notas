@@ -13,6 +13,14 @@ let btnSaveNote = document.querySelector("#btn-save-note"); //icone para salvar 
 
 
 
+
+
+
+
+
+
+
+
 /* ===================== EVENTOS  =================================*/
 addNote.addEventListener("click", (evt) =>{
     evt.preventDefault();
@@ -39,7 +47,15 @@ saveNote(data);
 
 
 
+
+
+
+
 /* ===================== FUNÇÕES  =================================*/
+
+
+
+
 
 
 
@@ -49,7 +65,15 @@ const saveNote = (note) => {
 
 
 
+
+
+
+
     let notes = loadNotes();
+
+
+
+
 
 
 
@@ -63,9 +87,17 @@ const saveNote = (note) => {
 
 
 
+
+
+
+
     note.lastTime = new Date().getTime();
     console.log(note);
     notes.push(note);
+
+
+
+
 
 
 
@@ -75,7 +107,15 @@ const saveNote = (note) => {
 
 
 
+
+
+
+
     localStorage.setItem('notes', notes); //colocar o texto no local storage
+
+
+
+
 
 
 
@@ -85,12 +125,24 @@ const saveNote = (note) => {
 
 
 
+
+
+
+
 const loadNotes = () =>{
 
 
 
 
+
+
+
+
     let notes = localStorage.getItem('notes');
+
+
+
+
 
 
 
@@ -104,7 +156,15 @@ const loadNotes = () =>{
 
 
 
+
+
+
+
 }
+
+
+
+
 
 
 
@@ -134,15 +194,13 @@ const listNotes = () =>{
 
 
 
+
+
+
+
         notes.appendChild(divCard);
     });
-
-
-
-
 }
-
-
-
-
 listNotes();
+
+
