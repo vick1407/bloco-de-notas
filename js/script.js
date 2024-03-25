@@ -13,14 +13,6 @@ let btnSaveNote = document.querySelector("#btn-save-note"); //icone para salvar 
 
 
 
-
-
-
-
-
-
-
-
 /* ===================== EVENTOS  =================================*/
 addNote.addEventListener("click", (evt) =>{
     evt.preventDefault();
@@ -47,15 +39,7 @@ saveNote(data);
 
 
 
-
-
-
-
 /* ===================== FUNÇÕES  =================================*/
-
-
-
-
 
 
 
@@ -65,15 +49,7 @@ const saveNote = (note) => {
 
 
 
-
-
-
-
     let notes = loadNotes();
-
-
-
-
 
 
 
@@ -87,17 +63,9 @@ const saveNote = (note) => {
 
 
 
-
-
-
-
     note.lastTime = new Date().getTime();
     console.log(note);
     notes.push(note);
-
-
-
-
 
 
 
@@ -107,15 +75,7 @@ const saveNote = (note) => {
 
 
 
-
-
-
-
     localStorage.setItem('notes', notes); //colocar o texto no local storage
-
-
-
-
 
 
 
@@ -125,24 +85,12 @@ const saveNote = (note) => {
 
 
 
-
-
-
-
 const loadNotes = () =>{
 
 
 
 
-
-
-
-
     let notes = localStorage.getItem('notes');
-
-
-
-
 
 
 
@@ -156,15 +104,7 @@ const loadNotes = () =>{
 
 
 
-
-
-
-
 }
-
-
-
-
 
 
 
@@ -194,13 +134,50 @@ const listNotes = () =>{
 
 
 
-
-
-
-
         notes.appendChild(divCard);
     });
+
+
+
+    const listNotes = () =>{
+        let listNotes = loadNotes();
+        listNotes.forEach((note) => {
+            let divCard = document.createElement('div');
+            divCard.className = 'card';
+            divCard.style.width = '25rem';
+            let divCardBody = document.createElement('div');
+            divCardBody.className = 'cardBody';
+            divCard.appendChild(divCardBody);
+            let h5 = document.createElement('h5');
+            h5.innerText = note.title;
+            divCardBody.appendChild(h5);
+            let paragrafo = document.createElement('p');
+            paragrafo.innerText = note.content;
+            divCardBody.appendChild(paragrafo);
+            let time = new Date(note.lastTime);
+            time = time.toLocaleDateString("pt-BR");
+            console.log(time);
+            let pData = document.createElement('p');
+            pData.innerText = time;
+            divCardBody.appendChild(pData);
+    
+    
+    
+    
+    
+    
+    
+    
+            notes.appendChild(divCard);
+        });
+    }
+    listNotes();
+    
+    
+    
 }
-listNotes();
+
+
+
 
 
