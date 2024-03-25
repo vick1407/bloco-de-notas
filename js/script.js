@@ -19,7 +19,7 @@ btnCloseModal.addEventListener("click", (evt) => {
     modal.style.display = "none";
     addNote.style.display = "block";
     notes.style.display = "flex";
-    modalView.style.display = "none"
+    modalView.style.display = "none";
 });
 
 btnSaveNote.addEventListener("click", (evt) => {
