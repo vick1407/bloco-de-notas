@@ -84,7 +84,7 @@ const listNotes =  () =>{
         divCardBody.appendChild(pLastTime);
         
         notes.appendChild(divCard);
-    };
+    });
 
         const showNote = (note) =>{
             
@@ -92,7 +92,7 @@ const listNotes =  () =>{
             addNote.style.display = 'none';
             modalView.style.display = 'block';
             document.querySelector('#title-note').innerHTML = "<h1>"+note.title+"</h1>";
-            document.querySelector("#content-note").innerHTML = '<p>Ultima Alteração : $(dateFormat('note.lastTime)</p>'
+            document.querySelector("#content-note").innerHTML = '<p>Ultima Alteração : $(dateFormat('note.lastTime')</p>'
         };
 
 const dateFormat = (timestamp) =>{
@@ -103,6 +103,5 @@ const dateFormat = (timestamp) =>{
 }
 
         
-    });
+    };
 
-}
