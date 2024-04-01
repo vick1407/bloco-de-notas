@@ -1,4 +1,3 @@
-
 let addNote = document.querySelector('#add-note');
 let btncloseModal = document.querySelector('#btn-close-modal'); 
 let modal = document.querySelector('#modal'); 
@@ -6,89 +5,67 @@ let modalView = document.querySelector('#modal-view');
 let notes = document.querySelector('#notes'); 
 let btnSaveNote = document.querySelector("#btn-save-note"); 
 let btnCloseNote = document.querySelector("#close-modal-view"); 
+let editingNoteId = null; // Adicionei essa linha para garantir que editingNoteId seja definido globalmente
 
 /*===================== Função e Eventos  ===========================*/
 
 addNote.addEventListener("click", (evt) => {
     evt.preventDefault();
+    editingNoteId = null;
+    clearNoteInputs();
     modal.style.display = "block";
     addNote.style.display = "none";
     notes.style.display = "none";
 });
 
-
 btncloseModal.addEventListener("click", (evt) => {
     evt.preventDefault();
-    modal.style.display = "none";
-    addNote.style.display = "block";
-    notes.style.display = "flex";
+    closeModal();
 });
-
 
 btnSaveNote.addEventListener("click", (evt) => {
     evt.preventDefault();
     let data = {
-        id: document.querySelector("#input-id").value,
+        id: editingNoteId || new Date().getTime(),
         title: document.querySelector("#input-title").value,
         content: document.querySelector("#input-content").value
     };
     saveNote(data);
 });
 
-
 btnCloseNote.addEventListener('click', (evt) => {
     evt.preventDefault();
-    modal.style.display = "none";
-    addNote.style.display = "block";
-    notes.style.display = "flex";
-    modalView.style.display = "none";
+    closeModal();
 });
 
 /*===================== Funções  ===========================*/
 
-
 const saveNote = (note) => {
-    console.log(note);
+    note.lastTime = new Date().getTime(); // Adicionando lastTime
     let notesList = loadNotes();
 
-    if (note.id.trim().length < 1) {
-        note.id = new Date().getTime();
-        document.querySelector('#input-id').value = note.id;
-    }
-    else{
-       notesList.forEach((item,i)=>{
-        if(item.id == note.id)(
-            notesList[i] = note
-        )
-    });
+    if (!editingNoteId) {
+        notesList.push(note);
+    } else {
+        let existingNoteIndex = notesList.findIndex(item => item.id === editingNoteId);
+        if (existingNoteIndex !== -1) {
+            notesList[existingNoteIndex] = note;
+        }
     }
 
-    note.lastTime = new Date().getTime();
-
-    notesList.push(note);
-
-    notesList = JSON.stringify(notesList);
-
-    localStorage.setItem('notes', notesList);
-    listNotes(); 
-
+    localStorage.setItem('notes', JSON.stringify(notesList));
+    closeModal();
+    listNotes();
 };
-
 
 const loadNotes = () => {
     let notesList = localStorage.getItem("notes");
-    if (!notesList) {
-        notesList = [];
-    } else {
-        notesList = JSON.parse(notesList);
-    }
-    return notesList;
+    return notesList ? JSON.parse(notesList) : [];
 };
-
 
 const listNotes = () => {
     let notesList = loadNotes();
-    notesList.innerHTML = '';
+    notes.innerHTML = '';
 
     notesList.forEach((note) => {
         let divCard = document.createElement('div');
@@ -106,7 +83,6 @@ const listNotes = () => {
 
         notes.appendChild(divCard);
 
-
         let pContent = document.createElement('p');
         pContent.innerText = note.content;
         divCardBody.appendChild(pContent);
@@ -115,16 +91,14 @@ const listNotes = () => {
         pLastTime.innerText = "Atualizado em: " + DateFormat(note.lastTime);
         divCardBody.appendChild(pLastTime);
 
-       
-        
         divCard.addEventListener('click', () => {
             showNote(note);
         });
     });
 };
 
-
 const showNote = (note) => {
+    editingNoteId = note.id;
     document.querySelector("#controls-note").innerHTML = '';
     notes.style.display = 'none';
     addNote.style.display = 'none';
@@ -134,12 +108,11 @@ const showNote = (note) => {
     <p>Última alteração: ${DateFormat(note.lastTime)}</p>`;
     let divEdit = document.createElement("div");
     let iEdit = document.createElement("i");
-    divEdit.className = "bi bi-pen"
+    divEdit.className = "bi bi-pen";
     divEdit.appendChild(iEdit);
     document.querySelector("#controls-note").appendChild(divEdit);
     divEdit.addEventListener("click", evt =>{
         evt.preventDefault();
-        
         document.querySelector("#input-id").value = note.id;
         document.querySelector("#input-title").value = note.title;
         document.querySelector("#input-content").value = note.content;
@@ -147,17 +120,45 @@ const showNote = (note) => {
         addNote.style.display ="none";
         notes.style.display = "none";
         modalView.style.display = "none";
-        
-    })
-    
-    
+    });
 
+    let divDelete = document.createElement("div");
+    let iDelete = document.createElement("i");
+    divDelete.className = "bi bi-trash";
+    divDelete.appendChild(iDelete);
+    document.querySelector("#controls-note").appendChild(divDelete);
+    divDelete.addEventListener("click", evt =>{
+        evt.preventDefault();
+        deleteNote(note.id);
+    });
+};
+
+const deleteNote = (noteId) => {
+    let notesList = loadNotes();
+    notesList = notesList.filter(note => note.id !== noteId);
+    localStorage.setItem('notes', JSON.stringify(notesList));
+    listNotes();
+    closeModal();
+};
+
+const closeModal = () => {
+    modal.style.display = "none";
+    addNote.style.display = "block";
+    notes.style.display = "flex";
+    modalView.style.display = 'none';
+    editingNoteId = null;
+    clearNoteInputs();
+};
+
+const clearNoteInputs = () => {
+    document.querySelector("#input-id").value = "";
+    document.querySelector("#input-title").value = "";
+    document.querySelector("#input-content").value = "";
 };
 
 const DateFormat = (timestamp) => {
     let date = new Date(timestamp);
-    date = date.toLocaleDateString("pt-BR");
-    return date;
+    return date.toLocaleDateString("pt-BR");
 };
 
 listNotes();
