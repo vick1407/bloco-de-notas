@@ -5,9 +5,9 @@ let modalView = document.querySelector('#modal-view');
 let notes = document.querySelector('#notes'); 
 let btnSaveNote = document.querySelector("#btn-save-note"); 
 let btnCloseNote = document.querySelector("#close-modal-view"); 
-let editingNoteId = null; // Adicionei essa linha para garantir que editingNoteId seja definido globalmente
+let editingNoteId = null;
 
-/*===================== Função e Eventos  ===========================*/
+
 
 addNote.addEventListener("click", (evt) => {
     evt.preventDefault();
@@ -38,10 +38,9 @@ btnCloseNote.addEventListener('click', (evt) => {
     closeModal();
 });
 
-/*===================== Funções  ===========================*/
 
 const saveNote = (note) => {
-    note.lastTime = new Date().getTime(); // Adicionando lastTime
+    note.lastTime = new Date().getTime(); 
     let notesList = loadNotes();
 
     if (!editingNoteId) {
