@@ -81,26 +81,51 @@
  }
  
  const listNotes = () => {
-     let listnotes = loadNotes();
-     console.log(listnotes);
-     listnotes.forEach((note) => {
-         let divCard = document.createElement('div');
-         divCard.className = 'card';
-         divCard.style.width = '25rem';
-         divCard.style.borderColor = '#1b85dc';
-         let divCardBody = document.createElement('div');
-         divCardBody.classname = 'card-body';
-         divCard.appendChild(divCardBody);
-         let h5 = document.createElement('h5');
-         h5.innerText = note.title;
-         divCardBody.appendChild(h5);
-         let pContent = document.createElement('p');
-         pContent.innerText = note.content;
-         divCardBody.appendChild(pContent);
-         let pLastTime = document.createElement('p');
-         pLastTime.innerText = "Atualizado em: "+DateFormat(note.lastTime);
-         divCardBody.appendChild(pLastTime);
- 
+    let listnotes = loadNotes();
+    let notesContainer = document.querySelector('#notes'); // Correção: Selecionar o elemento de contêiner de notas
+
+    listnotes.forEach((note) => {
+        let divCard = document.createElement('div');
+        divCard.className = 'card';
+        divCard.style.width = '25rem';
+        divCard.style.borderColor = '#1b85dc';
+        let divCardBody = document.createElement('div');
+        divCardBody.className = 'card-body'; // Correção: className em vez de classnama
+        divCard.appendChild(divCardBody);
+        let h5 = document.createElement('h5');
+        h5.innerText = note.title;
+        divCardBody.appendChild(h5);
+        let pContent = document.createElement('p');
+        pContent.innerText = note.content;
+        divCardBody.appendChild(pContent);
+        let pLastTime = document.createElement('p');
+        pLastTime.innerText = "Atualizado em: " + DateFormat(note.lastTime);
+        divCardBody.appendChild(pLastTime);
+
+        //----------Ícones----------//
+        let divIconA = document.createElement('div');
+        divIconA.className = 'Trash';
+        divCardBody.appendChild(divIconA);
+        let IconTrash = document.createElement('i');
+        IconTrash.style.color = 'red';
+        IconTrash.className = 'bi bi-trash';
+        divIconA.appendChild(IconTrash);
+        let divIconB = document.createElement('div');
+        divIconB.className = 'Disk';
+        divCardBody.appendChild(divIconB);
+        let IconDisk = document.createElement('i');
+        IconDisk.style.color = 'blue';
+        IconDisk.className = 'bi bi-sd-card';
+        divIconB.appendChild(IconDisk);
+
+        notesContainer.appendChild(divCard); // Correção: Usar notesContainer em vez de notes
+
+        divCard.addEventListener('click', (evt) => {
+            showNote(note);
+        })
+    });
+}
+
          //----------Incones----------//
          let divIconA = document.createElement('div');
          divIconA.className = 'Trash';
