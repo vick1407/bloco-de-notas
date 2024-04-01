@@ -147,8 +147,8 @@
          divCard.addEventListener('click', (evt) =>{
              showNote(note);
          })
-     });
- }
+     ;
+ 
  
  const showNote = (note) =>{
      notes.style.display = 'none';
