@@ -53,6 +53,14 @@ const saveNote = (note) => {
 
     if (note.id.trim().length < 1) {
         note.id = new Date().getTime();
+        document.querySelector('#input-id').value = note.id;
+    }
+    else{
+       notesList.forEach((item,i)=>{
+        if(item.id == note.id)(
+            notesList[i] = note
+        )
+    });
     }
 
     note.lastTime = new Date().getTime();
@@ -62,7 +70,8 @@ const saveNote = (note) => {
     notesList = JSON.stringify(notesList);
 
     localStorage.setItem('notes', notesList);
-    displayNotes(); 
+    listNotes(); 
+
 };
 
 
@@ -77,9 +86,9 @@ const loadNotes = () => {
 };
 
 
-const displayNotes = () => {
+const listNotes = () => {
     let notesList = loadNotes();
-    notes.innerHTML = '';
+    notesList.innerHTML = '';
 
     notesList.forEach((note) => {
         let divCard = document.createElement('div');
@@ -95,6 +104,9 @@ const displayNotes = () => {
         h5.innerText = note.title;
         divCardBody.appendChild(h5);
 
+        notes.appendChild(divCard);
+
+
         let pContent = document.createElement('p');
         pContent.innerText = note.content;
         divCardBody.appendChild(pContent);
@@ -103,25 +115,43 @@ const displayNotes = () => {
         pLastTime.innerText = "Atualizado em: " + DateFormat(note.lastTime);
         divCardBody.appendChild(pLastTime);
 
-        notes.appendChild(divCard);
-
+       
         
         divCard.addEventListener('click', () => {
-            showNoteDetails(note);
+            showNote(note);
         });
     });
 };
 
 
-const showNoteDetails = (note) => {
+const showNote = (note) => {
+    document.querySelector("#controls-note").innerHTML = '';
     notes.style.display = 'none';
     addNote.style.display = 'none';
     modalView.style.display = 'block';
     document.querySelector('#title-note').innerText = note.title;
     document.querySelector('#content-note').innerHTML = `<p>${note.content}</p>
     <p>Última alteração: ${DateFormat(note.lastTime)}</p>`;
+    let divEdit = document.createElement("div");
+    let iEdit = document.createElement("i");
+    divEdit.className = "bi bi-pen"
+    divEdit.appendChild(iEdit);
+    document.querySelector("#controls-note").appendChild(divEdit);
+    divEdit.addEventListener("click", evt =>{
+        evt.preventDefault();
+        
+        document.querySelector("#input-id").value = note.id;
+        document.querySelector("#input-title").value = note.title;
+        document.querySelector("#input-content").value = note.content;
+        modal.style.display="block";
+        addNote.style.display ="none";
+        notes.style.display = "none";
+        modalView.style.display = "none";
+        
+    })
     
-    document.querySelector('#input-id').value = note.id;
+    
+
 };
 
 const DateFormat = (timestamp) => {
@@ -130,4 +160,4 @@ const DateFormat = (timestamp) => {
     return date;
 };
 
-displayNotes();
+listNotes();
