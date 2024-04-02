@@ -229,3 +229,32 @@ label{
   border-color: rgb(175, 17, 43) !important;
   transition: 0.5s;
 }
+
+textarea:focus {
+  text-decoration: none !important;
+  outline: pink !important;
+}
+
+.form-control{
+  text-decoration: none !important;
+  outline: pink !important;
+}
+
+#input-title{
+  border: 2px solid pink;
+  padding: 5px;
+  
+  
+ 
+}
+
+label{
+  margin-right: 10px;
+  
+}
+
+textarea{
+  
+  border: 2px solid pink;
+}
+
